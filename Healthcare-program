@@ -1,0 +1,43 @@
+def getdate():
+    import datetime
+    return datetime.datetime.now()
+def lst_to_str(lst):
+    string = ""
+    for i in lst:
+        string = string + i
+    return (string)
+persons = []
+print("Are you a new person(y/n)")
+choice = input()
+if choice.lower() == "y":
+    name = input(print("Enter your name: "))
+    # persons.append(name)
+    with open("persons.txt", "a") as per:          #Enter the name of the person to the file person.txt
+        per.write(name.capitalize()+"\n")          #Enter the name of the person to the file person.txt
+        cont = "y"
+        while cont != "n":
+            food = input("Write your food details: \n")
+            with open(name.lower()+".txt", "a") as per:
+                per.write(str("\n" + str(getdate()) + ": " + str(food)))
+            cont = input("Want to write more(y/n): ")
+elif choice.lower() == "n":
+    print("Choose your name from below")
+    with open("persons.txt") as per:
+        for i in per:
+            print(i,end="")
+    selected = input(print("Select one name: "))
+    with open("persons.txt") as per:
+        while(per):
+            line = per.readline()
+            line_found= line.split()
+            if selected in line_found:
+                #print(line_found)
+                with open(lst_to_str(line_found).lower()+".txt",) as read:
+                    for i in read:
+                        print(i, end="")
+                break
+            else:
+                print("Not found")
+                break
+else:
+    print("Then why are yoy here............... :-\\")
