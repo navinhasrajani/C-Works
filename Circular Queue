@@ -1,0 +1,108 @@
+#include<iostream>
+using namespace std;
+#define size 5
+class CIR_QUE{
+public:
+    int frnt=-1,rear=0,cunt=0;//work from here-----
+    int que[size];
+    CIR_QUE()
+    {
+        for(int i=0;i<size;i++)
+            que[i]=0;
+        cout << "Welcome to Circular QUEUE\n";
+    }
+    void enqueue(int ele)
+    {
+        if(cunt>=size)
+            cout << "Queue fully filled!\n";
+        else{
+            que[rear]= ele;
+            cout<<"Element "<<ele<<" enqueued at "<<rear+1<<endl;
+            rear=(rear+1)%size;
+            cunt++;
+        }
+    }
+    int dequeue()
+    {
+        if(cunt<=0)
+            cout << "Queue empty!\n";
+        else{
+            frnt=(frnt+1)%size;
+            cout << que[frnt] << " removed from " << frnt+1<<endl;
+            que[frnt]=0;
+            cunt--;
+        }
+    }
+    int srch(int pos)
+    {
+        if(pos>size){
+            cout<<"Position out of index :--("<<endl;
+            return 0;}
+        else
+            if(que[(pos-1)%size]!=0){
+                cout << que[(pos-1)%size] << " is at "<<pos<<endl;
+                return que[(pos-1)%size];}
+            cout <<"Empty! :-)"<<endl;
+            return 0;
+    }
+    void update(int pos, int val)
+    {
+        que[(pos-1)%size]=val;
+        cout << "Element updated!\n";
+    }
+    void display()
+    {
+        cout << "---------------- QUEUE ----------------"<<endl;
+        for(int i=0; i<size;i++)
+            if(que[i]!=0)
+                cout<<que[i]<<endl;
+        cout << "---------------- QUEUE ----------------"<<endl;
+    }
+};
+
+int main()
+{
+    int tmp1,tmp2,choice;
+    CIR_QUE q;
+    while(choice!=999)
+	{
+		cout << "1-Enqueue"<<endl;
+		cout << "2-Dequeue"<<endl;
+		cout << "3-Search"<<endl;
+		cout << "4-Update"<<endl;
+		cout << "5-Display"<<endl;
+		cout << "6-Exit"<<endl;
+		cout << "Enter your choice: ";
+		cin>>choice;
+		switch(choice){
+			case 1:
+				cout << "Enter element: ";
+				cin>>tmp1;
+				q.enqueue(tmp1);
+				break;
+			case 2:
+				q.dequeue();
+				break;
+			case 3:
+				cout << "Enter number(from front): ";
+				cin>>tmp1;
+				q.srch(tmp1);
+				break;
+             case 4:
+                cout << "Enter number(from front) and Value: ";
+				cin>>tmp1>>tmp2;
+				q.update(tmp1,tmp2);
+				break;
+            case 5:
+                q.display();
+				break;
+			case 6:
+				exit(1);
+				break;
+			default:
+				cout << "Invalid selection\n";
+		}
+		system("pause");
+		system("CLS");
+	}
+}
